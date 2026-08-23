@@ -2,10 +2,10 @@ name: Build and Push to Docker Hub
 
 on:
   push:
-    branches: ["main"]
+    branches: ["master"]
     tags: ["v*.*.*"]
   pull_request:
-    branches: ["main"]
+    branches: ["master"]
 
 env:
   # Replace with your actual Docker Hub repository name (e.g. username/flac-converter)
@@ -32,14 +32,14 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      # Generates tags (:latest for main branch, :v1.0.0 for semver tags)
+      # Generates tags (:latest for master branch, :v1.0.0 for semver tags)
       - name: Extract Docker metadata
         id: meta
         uses: docker/metadata-action@v5
         with:
           images: ${{ env.DOCKERHUB_REPO }}
           tags: |
-            type=raw,value=latest,enable=${{ github.ref == 'refs/heads/main' }}
+            type=raw,value=latest,enable=${{ github.ref == 'refs/heads/master' }}
             type=semver,pattern={{version}}
 
       - name: Build and push Docker image
