@@ -1,10 +1,8 @@
-version: "3.8"
-
 services:
   flac-converter:
+    image: moolt/flac-converter:latest
     build: .
     platform: linux/amd64
-    container_name: moolt/flac-converter
     restart: unless-stopped
     environment:
       - MUSIC_DIR=/music
