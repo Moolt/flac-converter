@@ -1,0 +1,19 @@
+version: "3.8"
+
+services:
+  flac-converter:
+    build: .
+    platform: linux/amd64
+    container_name: flac-converter
+    restart: unless-stopped
+    environment:
+      - MUSIC_DIR=/music
+      - TARGET_FORMAT=opus # Options: opus, mp3, aac, m4a, ogg
+      - BITRATE=128k # Bitrate string (e.g. 128k, 320k, 256k)
+      - SCAN_INTERVAL=60 # Interval in seconds to scan directory
+      - DELETE_ORIGINAL=true # Set to false to test without deleting FLACs
+      # Optional manual overrides if using custom codecs:
+      # - CODEC=libfdk_aac
+      # - EXTENSION=m4a
+    volumes:
+      - /home/malte/Music/Converter_Test:/music
